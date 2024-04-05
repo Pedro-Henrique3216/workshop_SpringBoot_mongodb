@@ -1,6 +1,7 @@
 package com.pedrohenrique.workshopmongo.services;
 
 import com.pedrohenrique.workshopmongo.domain.User;
+import com.pedrohenrique.workshopmongo.dto.UserDTO;
 import com.pedrohenrique.workshopmongo.repository.UserRepository;
 import com.pedrohenrique.workshopmongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id){
         Optional<User> user = repository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User user){
+        return repository.insert(user);
+    }
+
+    public User fromDTO(UserDTO dto){
+        return new User(dto.id(), dto.name(), dto.email());
     }
 }
