@@ -29,6 +29,11 @@ public class UserService {
         return repository.insert(user);
     }
 
+    public User update(User user) {
+        User newUser = findById(user.getId());
+        updateData(newUser, user);
+        return repository.save(newUser);
+    }
     public void delete(String id){
         findById(id);
         repository.deleteById(id);
@@ -36,5 +41,14 @@ public class UserService {
 
     public User fromDTO(UserDTO dto){
         return new User(dto.id(), dto.name(), dto.email());
+    }
+
+    public void updateData(User newUser, User user){
+        if(user.getName() != null){
+            newUser.setName(user.getName());
+        }
+        if(user.getEmail() != null){
+            newUser.setEmail(user.getEmail());
+        }
     }
 }
