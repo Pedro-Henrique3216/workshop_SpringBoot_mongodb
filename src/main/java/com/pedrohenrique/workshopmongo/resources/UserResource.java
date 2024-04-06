@@ -1,5 +1,6 @@
 package com.pedrohenrique.workshopmongo.resources;
 
+import com.pedrohenrique.workshopmongo.domain.Post;
 import com.pedrohenrique.workshopmongo.domain.User;
 import com.pedrohenrique.workshopmongo.dto.UserDTO;
 import com.pedrohenrique.workshopmongo.services.UserService;
@@ -29,6 +30,12 @@ public class UserResource {
     public ResponseEntity<UserDTO> findById(@PathVariable String id){
        User user = service.findById(id);
        return ResponseEntity.ok().body(new UserDTO(user));
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 
     @PostMapping
